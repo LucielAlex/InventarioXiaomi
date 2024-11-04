@@ -22,6 +22,7 @@ public class InicioEmp extends javax.swing.JFrame {
         btncerrarsesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         btnregistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnregistrar.setText("Registrar");

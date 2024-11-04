@@ -6,7 +6,12 @@ import modelo.*;
 
 
 public class InicioSesion extends javax.swing.JFrame {
-
+    private static final String EMPTY_FIELDS_MESSAGE = "No puede dejar los campos vacíos.";
+    private static final String INCORRECT_CREDENTIALS_MESSAGE = "Usuario o contraseña incorrectos";
+    private static final String USERNAME_EMPTY_MESSAGE = "El nombre de usuario no puede estar vacío.";
+    private static final String PASSWORD_EMPTY_MESSAGE = "La contraseña no puede estar vacía.";
+    private static final int MIN_USERNAME_LENGTH = 4;
+    private static final int MIN_PASSWORD_LENGTH = 6;
 
     public InicioSesion() {
         initComponents();
@@ -62,9 +67,19 @@ public class InicioSesion extends javax.swing.JFrame {
 
         txtusuario.setText("Usuario");
         txtusuario.setBorder(null);
+        txtusuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtusuarioMouseClicked(evt);
+            }
+        });
 
         txtcontra.setText("jPasswordField1");
         txtcontra.setBorder(null);
+        txtcontra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtcontraMouseClicked(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -184,47 +199,72 @@ public class InicioSesion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private boolean validateInputs() {
+        String username = txtusuario.getText().trim();
+        String password = String.valueOf(txtcontra.getPassword()).trim();
+
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, USERNAME_EMPTY_MESSAGE, "Error", JOptionPane.ERROR_MESSAGE);
+            txtusuario.requestFocus();
+            return false;
+        }
+        if (username.length() < MIN_USERNAME_LENGTH) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario debe tener al menos " + MIN_USERNAME_LENGTH + " caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtusuario.requestFocus();
+            return false;
+        }
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, PASSWORD_EMPTY_MESSAGE, "Error", JOptionPane.ERROR_MESSAGE);
+            txtcontra.requestFocus();
+            return false;
+        }
+        if (password.length() < MIN_PASSWORD_LENGTH) {
+            JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos " + MIN_PASSWORD_LENGTH + " caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcontra.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-      UsuarioDAO ud = new UsuarioDAO();
-        UsuarioDTO u = new UsuarioDTO();
-        String usu, pas;
-        usu = txtusuario.getText();
-        pas = String.valueOf(txtcontra.getPassword());
-        u = ud.iniciarSesion(usu, pas);
-        if(txtusuario.getText().isEmpty() || txtcontra.getPassword().length==0){
-          JOptionPane.showMessageDialog(null, "No puede dejar los campos vacios"
-                , "Campos Vacios", HEIGHT); 
-           } else {
-          if(u == null){
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+       if (!validateInputs()) return;
+
+        UsuarioDAO ud = new UsuarioDAO();
+        UsuarioDTO u = ud.iniciarSesion(txtusuario.getText(), String.valueOf(txtcontra.getPassword()));
+
+        if (u == null) {
+            JOptionPane.showMessageDialog(this, INCORRECT_CREDENTIALS_MESSAGE, "Error", JOptionPane.ERROR_MESSAGE);
             txtusuario.setText(null);
             txtcontra.setText(null);
             txtusuario.requestFocus();
-        }
-        else{
-            switch(u.getRol()){
+        } else {
+            switch (u.getRol()) {
                 case "emple":
-                    InicioEmp fp = new InicioEmp();
-                   fp.setVisible(true);
-                   setVisible(false);
+                    new InicioEmp().setVisible(true);
                     break;
                 case "admin":
-                   InicioAdmin fpp = new InicioAdmin();
-                   fpp.setVisible(true);
-                   setVisible(false);
-                    break;    
+                    new InicioAdmin().setVisible(true);
+                    break;
                 default:
-                    throw new AssertionError();
-            }  
-            
-        }   
+                    JOptionPane.showMessageDialog(this, "Rol desconocido", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+            setVisible(false);
         }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
     System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void txtusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtusuarioMouseClicked
+        txtusuario.setText("");
+    }//GEN-LAST:event_txtusuarioMouseClicked
+
+    private void txtcontraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtcontraMouseClicked
+        txtcontra.setText("");
+    }//GEN-LAST:event_txtcontraMouseClicked
 
 
     public static void main(String args[]) {
