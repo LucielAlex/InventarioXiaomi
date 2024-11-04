@@ -22,9 +22,12 @@ public class InicioEmp extends javax.swing.JFrame {
         btncerrarsesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
+        btnregistrar.setBackground(new java.awt.Color(153, 0, 51));
         btnregistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnregistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnregistrar.setText("Registrar");
         btnregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -32,7 +35,9 @@ public class InicioEmp extends javax.swing.JFrame {
             }
         });
 
+        btnactualizar.setBackground(new java.awt.Color(153, 0, 51));
         btnactualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnactualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnactualizar.setText("Actualizar");
         btnactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -40,7 +45,9 @@ public class InicioEmp extends javax.swing.JFrame {
             }
         });
 
+        btngestion.setBackground(new java.awt.Color(153, 0, 51));
         btngestion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btngestion.setForeground(new java.awt.Color(255, 255, 255));
         btngestion.setText("Gestion");
         btngestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,7 +55,9 @@ public class InicioEmp extends javax.swing.JFrame {
             }
         });
 
+        btnlistar.setBackground(new java.awt.Color(153, 0, 51));
         btnlistar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnlistar.setForeground(new java.awt.Color(255, 255, 255));
         btnlistar.setText("Listar");
         btnlistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +65,9 @@ public class InicioEmp extends javax.swing.JFrame {
             }
         });
 
+        btnbusqueda.setBackground(new java.awt.Color(153, 0, 51));
         btnbusqueda.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnbusqueda.setForeground(new java.awt.Color(255, 255, 255));
         btnbusqueda.setText("Busqueda");
         btnbusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +75,9 @@ public class InicioEmp extends javax.swing.JFrame {
             }
         });
 
+        btncerrarsesion.setBackground(new java.awt.Color(153, 0, 51));
         btncerrarsesion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btncerrarsesion.setForeground(new java.awt.Color(255, 255, 255));
         btncerrarsesion.setText("Cerrar Sesión");
         btncerrarsesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

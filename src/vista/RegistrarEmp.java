@@ -30,6 +30,7 @@ public class RegistrarEmp extends javax.swing.JFrame {
         btnregistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(575, 440));
 
@@ -71,7 +72,9 @@ public class RegistrarEmp extends javax.swing.JFrame {
         cbxsede.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbxsede.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnregistrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnregistrar.setBackground(new java.awt.Color(153, 0, 51));
+        btnregistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnregistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnregistrar.setText("Registrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
