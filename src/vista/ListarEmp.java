@@ -1,4 +1,5 @@
 package vista;
+import controlador.ProductoDAO;
 import modelo.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

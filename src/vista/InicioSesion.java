@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.UsuarioDAO;
 import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JOptionPane;
 import modelo.*;
@@ -259,7 +260,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     new InicioEmp().setVisible(true);
                     break;
                 case "admin":
-                    new InicioAdmin().setVisible(true);
+                    new InicioAdm().setVisible(true);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Rol desconocido", "Error", JOptionPane.ERROR_MESSAGE);
