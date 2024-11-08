@@ -1,14 +1,28 @@
 package vista;
 
+import controlador.*;
+import modelo.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class BuscarEmp extends javax.swing.JFrame {
-
+  DefaultTableModel tabla = new DefaultTableModel();
 
     public BuscarEmp() {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setTitle("Buscar un Producto");
+        mostrarCabecera();
     }
-
+  public void mostrarCabecera(){
+        tabla.addColumn("ID");
+        tabla.addColumn("Nombre");
+        tabla.addColumn("Precio");
+        tabla.addColumn("Cantidad");
+        tabla.addColumn("Tienda");
+        tblbus.setModel(tabla);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -19,7 +33,7 @@ public class BuscarEmp extends javax.swing.JFrame {
         txtcod = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tblbus = new javax.swing.JTable();
         btnbusqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -40,7 +54,7 @@ public class BuscarEmp extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Ingrese código del producto");
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        tblbus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,10 +65,15 @@ public class BuscarEmp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabla);
+        jScrollPane1.setViewportView(tblbus);
 
         btnbusqueda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnbusqueda.setText("Buscar");
+        btnbusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbusquedaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +125,39 @@ public class BuscarEmp extends javax.swing.JFrame {
         objInicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
+private void listar(List<ProductoDTO> lista) {
+    tabla.getDataVector().removeAllElements();
+    for (ProductoDTO producto : lista) {
+        Object[] data = {producto.getId(), producto.getNombre(), producto.getCategoria(), 
+                         producto.getPrecio(), producto.getCantidad(), producto.getIdtienda()};
+        tabla.addRow(data);
+    }
+}
+    private void btnbusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbusquedaActionPerformed
+    ProductoDAO pdao = new ProductoDAO();
+ArrayList<ProductoDTO> lista = new ArrayList<>();
+
+if (txtcod.getText().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Ingrese un código de Producto", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
+} else {
+    try {
+        int id = Integer.parseInt(txtcod.getText());
+
+        lista = (ArrayList<ProductoDTO>) pdao.BuscarPro(id);
+        if (lista.size() != 0) {
+            listar(lista);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay productos con esa categoría", "Sin existencias", JOptionPane.INFORMATION_MESSAGE);
+            txtcod.setText("");
+txtcod.requestFocus();
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "El código de producto debe ser un número válido", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        txtcod.setText("");
+txtcod.requestFocus();
+    }
+}
+    }//GEN-LAST:event_btnbusquedaActionPerformed
 
 
     public static void main(String args[]) {
@@ -147,7 +199,7 @@ public class BuscarEmp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabla;
+    private javax.swing.JTable tblbus;
     private javax.swing.JTextField txtcod;
     // End of variables declaration//GEN-END:variables
 }

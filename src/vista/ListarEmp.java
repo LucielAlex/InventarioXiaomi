@@ -1,6 +1,8 @@
 package vista;
+import controlador.*;
 import modelo.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -124,64 +126,55 @@ public class ListarEmp extends javax.swing.JFrame {
         objInicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
+private void listar(List<ProductoDTO> lista) {
+    tabla.getDataVector().removeAllElements();
+    for (ProductoDTO producto : lista) {
+        Object[] data = {producto.getId(), producto.getNombre(), producto.getCategoria(), 
+                         producto.getPrecio(), producto.getCantidad(), producto.getIdtienda()};
+        tabla.addRow(data);
+    }
+}
 
     private void btnlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarActionPerformed
-        //ProductoDTO pdto = new ProductoDTO();
+
         ProductoDAO pdao = new ProductoDAO();
         ArrayList<ProductoDTO> lista = new ArrayList<>();
         String categoria = cbxcat.getSelectedItem().toString();
-        if (categoria =="Seleccionar"){
-          JOptionPane.showMessageDialog(null, "Eliga una categoría"
-                , "Campo Vacio", HEIGHT); 
+        if ("Seleccionar".equals(categoria)) {
+        JOptionPane.showMessageDialog(null, "Elija una categoría", "Campo Vacío", HEIGHT);
         } else {
         switch (categoria) {
                 case "Alta":
-                    lista = (ArrayList<ProductoDTO>)pdao.listarAlta();
+                    lista = (ArrayList<ProductoDTO>)pdao.listarPorCategoria(categoria);
                     if (lista.size() != 0) {
                      tabla.getDataVector().removeAllElements();
-                        for (int i = 0; i < lista.size(); i++) {
-                            Object[] data = {lista.get(i).getId(), lista.get(i).getNombre(),
-                                lista.get(i).getNombre(), lista.get(i).getPrecio(),
-                                lista.get(i).getCantidad(), lista.get(i).getIdtienda()};
-                            tabla.addRow(data);
-                        }
+                    listar(lista);
                     } else
                         JOptionPane.showMessageDialog(null, "No hay productos con esa categoría,"
                                , "Sin existencias", 1);
                     break;
                 case "Media":
-                    lista = (ArrayList<ProductoDTO>)pdao.listarMedia();
+                    lista = (ArrayList<ProductoDTO>)pdao.listarPorCategoria(categoria);
                     if (lista.size() != 0) {
-                        tabla.getDataVector().removeAllElements();
-                        for (int i = 0; i < lista.size(); i++) {
-                            Object[] data = {lista.get(i).getId(), lista.get(i).getNombre(),
-                                lista.get(i).getNombre(), lista.get(i).getPrecio(),
-                                lista.get(i).getCantidad(), lista.get(i).getIdtienda()};
-                            tabla.addRow(data);
-                        }
+                     tabla.getDataVector().removeAllElements();
+                    listar(lista);
                     } else
                         JOptionPane.showMessageDialog(null, "No hay productos con esa categoría,"
-                                , "Sin existencias", 1);
+                               , "Sin existencias", 1);
                     break;
                 case "Baja":
-                    lista = (ArrayList<ProductoDTO>)pdao.listarBaja();
+                    lista = (ArrayList<ProductoDTO>)pdao.listarPorCategoria(categoria);
                     if (lista.size() != 0) {
-                        tabla.getDataVector().removeAllElements();
-                        for (int i = 0; i < lista.size(); i++) {
-                            Object[] data = {lista.get(i).getId(), lista.get(i).getNombre(),
-                                lista.get(i).getNombre(), lista.get(i).getPrecio(),
-                                lista.get(i).getCantidad(), lista.get(i).getIdtienda()};
-                            tabla.addRow(data);
-                        }
+                     tabla.getDataVector().removeAllElements();
+                    listar(lista);
                     } else
                         JOptionPane.showMessageDialog(null, "No hay productos con esa categoría,"
-                             , "Sin existencias", 1);
-                    break;
-                    
+                               , "Sin existencias", 1);
+                    break;          
                 default:
                     throw new AssertionError();
             }
-        } //Muere primer if
+        } 
         
     }//GEN-LAST:event_btnlistarActionPerformed
 

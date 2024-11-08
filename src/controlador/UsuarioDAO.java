@@ -1,10 +1,11 @@
-package modelo;
+package controlador;
 import java.sql.Connection;
 import controlador.ConexionBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.UsuarioDTO;
 
 
 public class UsuarioDAO {
